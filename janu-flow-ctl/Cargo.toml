@@ -1,0 +1,65 @@
+[package]
+name = "janu-flow-ctl"
+version = "0.1.0"
+repository = "https://github.com/virtuehive/janu-flow"
+homepage = "http://tawedge.com"
+authors = ["Cak Nyut <nyut99@gmail.com>",]
+edition = "2018"
+license = " EPL-2.0 OR Apache-2.0"
+categories = ["network-programming"]
+description = "Janu-Flow: janu-based data-flow programming framework for computations that span from the cloud to the device."
+readme = "README.md"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+janu-flow = {path = "../janu-flow"}
+janu = { git = "https://github.com/virtuehive/janu.git", branch = "main" }
+janu-util = { git = "https://github.com/virtuehive/janu.git", branch = "main" }
+jrpc = { git = "https://github.com/virtuehive/janu-rpc.git", branch = "main" }
+jnrpc-macros = { git = "https://github.com/virtuehive/janu-rpc.git", branch = "main" }
+async-std = { version = "=1.9.0", features = ["attributes"] }
+structopt = "0.3.13"
+clap = "2.33"
+exitfailure = "0.5.1"
+failure = "0.1.8"
+prettytable-rs = "^0.8"
+uuid = { version = "0.8.1", features = ["serde", "v4"] }
+base64 = "0.13.0"
+derive_more = "0.99.10"
+semver = { version = "1.0.4", features = ["serde"]}
+rand = "0.8.3"
+serde_derive = "1.0.55"
+serde = { version = "1.0.55", features = ["derive"] }
+serde_yaml = "0.8.13"
+serde_json = "1.0.55"
+serde-aux = "2.1.1"
+log = "0.4"
+env_logger = "0.9.0"
+git-version = "0.3.4"
+
+# Debian package configuration
+
+[package.metadata.deb]
+maintainer = "Cak Nyut <nyut99@gmail.com>"
+copyright = "2021, Tawedge"
+extended-description = "TAW Janu Flow CLI tool"
+license-file = ["../LICENSE", "0"]
+depends = "$auto"
+section = "utils"
+priority = "optional"
+assets = [
+    # binary
+    ["target/release/janu-flow-ctl", "/usr/bin/janu-flow-ctl", "755"],
+]
+
+# RPM package configuration
+
+[package.metadata.rpm]
+package = "janu-flow-ctl"
+
+[package.metadata.rpm.cargo]
+buildflags = ["--release"]
+
+[package.metadata.rpm.targets]
+janu-flow-ctl = { path = "/usr/bin/janu-flow-ctl" }

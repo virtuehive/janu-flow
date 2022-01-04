@@ -1,0 +1,29 @@
+##
+## Copyright (c) 2017, 2021 Tawedge.
+##
+## This program and the accompanying materials are made available under the
+## terms of the TAW Public License 2.0 which is available at
+## http://www.eclipse.org/legal/epl-2.0, or the Apache License, Version 2.0
+## which is available at https://www.apache.org/licenses/LICENSE-2.0.
+##
+## SPDX-License-Identifier: EPL-2.0 OR Apache-2.0
+##
+## Contributors:
+##   open
+##
+
+Section: utils
+Priority: optional
+# Homepage: <enter URL here; no default>
+Standards-Version: 3.9.2
+
+Package: janu-flow
+Version: 0.1.0
+Maintainer: Cak Nyut <nyut99@gmail.com>
+Depends: janud (=0.6.0~dev.0), janu-plugin-storages (=0.6.0~dev.0), janu-backend-influxdb (=0.6.0~dev.0), janu-flow-daemon (=0.1.0), janu-flow-ctl(=0.1.0)
+Vcs-Browser: https://github.com/virtuehive/janu-flow
+Vcs-Git: https://github.com/virtuehive/janu-flow
+Homepage: http://tawedge.com
+Architecture: all
+Description: Janu-Flow: janu-based data-flow programming framework for computations that
+  span from the cloud to the device.

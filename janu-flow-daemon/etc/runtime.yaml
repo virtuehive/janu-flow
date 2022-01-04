@@ -1,0 +1,9 @@
+---
+    pid_file : /var/janu-flow/runtime.pid
+    path : /etc/janu-flow
+    loader:
+      extensions: []
+    janu :
+      kind: peer
+      listen: ["tcp/0.0.0.0:7997"]
+      locators: []

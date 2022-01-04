@@ -1,0 +1,77 @@
+[package]
+name = "janu-flow-daemon"
+version = "0.1.0"
+repository = "https://github.com/virtuehive/janu-flow"
+homepage = "http://tawedge.com"
+authors = ["Cak Nyut <nyut99@gmail.com>",]
+edition = "2018"
+license = " EPL-2.0 OR Apache-2.0"
+categories = ["network-programming"]
+description = "Janu-Flow: janu-based data-flow programming framework for computations that span from the cloud to the device."
+readme = "README.md"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+janu-flow = {path = "../janu-flow"}
+env_logger = "0.9.0"
+serde_derive = "1.0"
+serde = { version = "1.0", features = ["derive", "rc"] }
+serde_yaml = {version = "0.8"}
+serde_json = "1.0"
+log = "0.4"
+async-std = { version = "=1.9.0", features = ["attributes"] }
+uuid = { version = "0.8", features = ["serde", "v4"] }
+uhlc = "0.4"
+janu = { git = "https://github.com/virtuehive/janu.git", branch = "main"}
+janu-util = { git = "https://github.com/virtuehive/janu.git", branch = "main" }
+jrpc = { git = "https://github.com/virtuehive/janu-rpc.git", branch = "main" }
+jnrpc-macros = { git = "https://github.com/virtuehive/janu-rpc.git", branch = "main" }
+structopt = "0.3"
+hostname = "0.3.1"
+machine-uid = "0.2.0"
+git-version = "0.3"
+async-ctrlc ={version = "1.2.0", features = ["stream"]}
+futures = "0.3.5"
+
+
+
+# Debian package configuration
+
+[package.metadata.deb]
+maintainer = "Cak Nyut <nyut99@gmail.com>"
+copyright = "2021, Tawedge"
+extended-description = "TAW Janu Flow Daemon"
+license-file = ["../LICENSE", "0"]
+depends = "$auto"
+section = "utils"
+priority = "optional"
+assets = [
+    # binary
+    ["target/release/janu-flow-daemon", "/usr/bin/janu-flow-daemon", "755"],
+    # assets
+    ["etc/runtime.yaml", "/etc/janu-flow/runtime.yaml", "644"],
+    ["var/*", "/var/janu-flow", "644"],
+]
+
+conf-files = ["/etc/janu-flow/runtime.yaml"]
+
+[package.metadata.deb.systemd-units]
+unit-scripts = "resources/"
+unit-name = "janu-flow.service"
+
+# RPM package configuration
+
+[package.metadata.rpm]
+package = "janu-flow-daemon"
+
+[package.metadata.rpm.cargo]
+buildflags = ["--release"]
+
+[package.metadata.rpm.targets]
+janu-flow-daemon = { path = "/usr/bin/janu-flow-daemon" }
+
+[package.metadata.rpm.files]
+"../etc/runtime.yaml" = { path = "/etc/janu-flow/runtime.yaml", mode = "644" }
+"../var/placeholder" = { path = "/var/janu-flow/placeholder" }
+"../resources/janu-flow.service" = { path = "/lib/systemd/system/janu-flow.service" }
